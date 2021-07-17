@@ -1,4 +1,5 @@
-// code to build and initialize DB goes here
+const client = require("./client");
+
 const {
   client,
   // other db methods 
@@ -54,7 +55,7 @@ async function buildTables() {
   }
 }
 
-async function populateInitialData() {
+async function createInitialUsers() {
   try {
     console.log("Starting to create albums...");
     await createAlbums({
@@ -70,11 +71,11 @@ async function populateInitialData() {
     console.log("finished creating albums")
 
   } catch (error) {
+    console.log("Error during rebuildDB");
     throw error;
   }
 }
 
-buildTables()
-  .then(populateInitialData)
+rebuildDB()
   .catch(console.error)
   .finally(() => client.end());
